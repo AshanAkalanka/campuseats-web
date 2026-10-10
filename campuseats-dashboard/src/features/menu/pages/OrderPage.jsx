@@ -20,7 +20,7 @@ function OrderPage() {
             validationErrors.email = "Enter a valid email";
         }
         if (Number(values.qty) < 1) {
-            validationErrors.qty = "Qty must be ≥ 1";
+            validationErrors.qty = "Qty must be >= 1";
         }
         return validationErrors;
     }
@@ -46,55 +46,58 @@ function OrderPage() {
     if (done) {
         return (
             <div className="success-message">
-                <h2>Order Successful!</h2>
-                <p>Thanks, {form.name}! Your order has been received.</p>
+                <h2>🎉 Order Successful!</h2>
+                <p>Thanks, <strong>{form.name}</strong>! Your order has been received.</p>
             </div>
         );
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                name="name"
-                type="text"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Enter your name"
-            />
+        <div>
+            <h2>Place Your Order</h2>
+            <form onSubmit={handleSubmit}>
+                <div style={{marginBottom: "20px"}}>
+                    <label style={{display: "block", marginBottom: "5px", fontWeight: "bold", color: "#334155"}}>Full Name</label>
+                    <input
+                        name="name"
+                        type="text"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="John Doe"
+                    />
+                    {errors.name && <span>{errors.name}</span>}
+                </div>
 
-            {errors.name && (
-                <span>{errors.name}</span>
-            )}
+                <div style={{marginBottom: "20px"}}>
+                    <label style={{display: "block", marginBottom: "5px", fontWeight: "bold", color: "#334155"}}>Email Address</label>
+                    <input
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                    />
+                    {errors.email && <span>{errors.email}</span>}
+                </div>
 
-            <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-            />
+                <div style={{marginBottom: "30px"}}>
+                    <label style={{display: "block", marginBottom: "5px", fontWeight: "bold", color: "#334155"}}>Number of Items</label>
+                    <input
+                        name="qty"
+                        type="number"
+                        value={form.qty}
+                        onChange={handleChange}
+                        placeholder="1"
+                        min="1"
+                    />
+                    {errors.qty && <span>{errors.qty}</span>}
+                </div>
 
-            {errors.email && (
-                <span>{errors.email}</span>
-            )}
-
-            <input
-                name="qty"
-                type="number"
-                value={form.qty}
-                onChange={handleChange}
-                placeholder="Enter quantity"
-                min="1"
-            />
-
-            {errors.qty && (
-                <span>{errors.qty}</span>
-            )}
-
-            <button type="submit">
-                Place order
-            </button>
-        </form>
+                <button type="submit" style={{width: "100%", padding: "14px", fontSize: "16px"}}>
+                    Complete Order
+                </button>
+            </form>
+        </div>
     );
 }
 

@@ -1,26 +1,36 @@
 import { Link } from "react-router-dom";
 
 function DishCard({ dish }) {
+    // Consistent image for each dish using picsum seed
+    const imageUrl = `https://picsum.photos/seed/${dish.id}/500/350`;
+
     return (
         <div className="dish-card">
-            <h3>{dish.name}</h3>
+            <div className="dish-image-wrapper">
+                <img src={imageUrl} alt={dish.name} className="dish-image" />
+                {!dish.available && (
+                    <span className="sold-out">Sold out</span>
+                )}
+            </div>
 
-            <p className="dish-price">
-                Rs. {dish.price.toFixed(2)}
-            </p>
+            <div className="dish-card-body">
+                <h3>{dish.name}</h3>
 
-            <small>{dish.category}</small>
+                <p className="dish-price">
+                    Rs. {Number(dish.price).toFixed(2)}
+                </p>
 
-            {!dish.available && (
-                <span className="sold-out">Sold out</span>
-            )}
+                <p className="dish-category">
+                    {dish.category}
+                </p>
 
-            <Link
-                className="details-link"
-                to={`/dish/${dish.id}`}
-            >
-                View Details →
-            </Link>
+                <Link
+                    className="details-link"
+                    to={`/dish/${dish.id}`}
+                >
+                    View Details →
+                </Link>
+            </div>
         </div>
     );
 }

@@ -13,8 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
-    p.WithOrigins("https://YOUR_VERCEL_APP_URL.vercel.app", "http://localhost:5173") // <-- UPDATE VERCEL URL
-    .AllowAnyHeader().AllowAnyMethod()));
+    p.AllowAnyOrigin()
+     .AllowAnyHeader()
+     .AllowAnyMethod()));
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition(
@@ -90,14 +91,44 @@ using (var scope = app.Services.CreateScope())
     // Automatically apply migrations to the database on startup!
     db.Database.Migrate();
 
-    if (!db.MenuItems.Any())
+    // Remove any test items like "test123"
+    var testItems = db.MenuItems.Where(m => m.Name.ToLower().Contains("test123")).ToList();
+    if (testItems.Any())
     {
-        db.MenuItems.AddRange(
-            new MenuItem { Name = "Kottu Roti", Price = 750m, Category = "Mains" },
-            new MenuItem { Name = "Fried Rice", Price = 850m, Category = "Mains" },
-            new MenuItem { Name = "Watalappan", Price = 350m, Category = "Dessert" });
+        db.MenuItems.RemoveRange(testItems);
         db.SaveChanges();
     }
+
+    // Remove last 5 dishes if present in database
+    var dishesToRemove = new[] { "Samosa", "Chocolate Brownie", "Fruit Salad", "Lime Juice", "Milk Tea" };
+    var itemsToDelete = db.MenuItems.Where(m => dishesToRemove.Contains(m.Name)).ToList();
+    if (itemsToDelete.Any())
+    {
+        db.MenuItems.RemoveRange(itemsToDelete);
+        db.SaveChanges();
+    }
+
+    var defaultDishes = new List<MenuItem>
+    {
+        new MenuItem { Name = "Kottu Roti", Price = 750m, Category = "Mains", Available = true },
+        new MenuItem { Name = "Fried Rice", Price = 850m, Category = "Mains", Available = true },
+        new MenuItem { Name = "Veg Sub", Price = 600m, Category = "Snacks", Available = false },
+        new MenuItem { Name = "Watalappan", Price = 350m, Category = "Dessert", Available = true },
+        new MenuItem { Name = "Iced Milo", Price = 300m, Category = "Drinks", Available = true },
+        new MenuItem { Name = "Chicken Burger", Price = 650m, Category = "Snacks", Available = true },
+        new MenuItem { Name = "Egg Roti", Price = 200m, Category = "Snacks", Available = true },
+        new MenuItem { Name = "String Hoppers", Price = 400m, Category = "Mains", Available = true },
+        new MenuItem { Name = "Milk Rice", Price = 350m, Category = "Mains", Available = true }
+    };
+
+    foreach (var dish in defaultDishes)
+    {
+        if (!db.MenuItems.Any(m => m.Name == dish.Name))
+        {
+            db.MenuItems.Add(dish);
+        }
+    }
+    db.SaveChanges();
 }
 
 if (app.Environment.IsDevelopment())

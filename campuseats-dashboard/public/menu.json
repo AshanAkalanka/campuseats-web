@@ -33,5 +33,33 @@
     "price": 300,
     "category": "Drinks",
     "available": true
+  },
+  {
+    "id": 6,
+    "name": "Chicken Burger",
+    "price": 650,
+    "category": "Snacks",
+    "available": true
+  },
+  {
+    "id": 7,
+    "name": "Egg Roti",
+    "price": 200,
+    "category": "Snacks",
+    "available": true
+  },
+  {
+    "id": 8,
+    "name": "String Hoppers",
+    "price": 400,
+    "category": "Mains",
+    "available": true
+  },
+  {
+    "id": 9,
+    "name": "Milk Rice",
+    "price": 350,
+    "category": "Mains",
+    "available": true
   }
 ]
