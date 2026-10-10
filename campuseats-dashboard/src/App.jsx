@@ -73,6 +73,25 @@ export default function App() {
             <Route path="*" element={<p>404 — Page not found</p>} />
           </Routes>
         </main>
+
+        <footer className="site-footer">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <FaGraduationCap style={{ marginRight: "6px", verticalAlign: "middle" }} />
+              CampusEats
+            </div>
+            <p className="footer-text">
+              © {new Date().getFullYear()} CampusEats. Fresh & convenient campus dining.
+            </p>
+            <div className="footer-links">
+              <NavLink to="/">Menu</NavLink>
+              <span>•</span>
+              <NavLink to="/order">Place Order</NavLink>
+              <span>•</span>
+              <NavLink to="/orders">My Orders</NavLink>
+            </div>
+          </div>
+        </footer>
       </div>
   );
 }
