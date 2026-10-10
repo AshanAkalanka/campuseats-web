@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
-    p.WithOrigins("https://YOUR_VERCEL_APP_URL.vercel.app") // <-- UPDATE THIS to your actual Vercel URL
+    p.WithOrigins("https://YOUR_VERCEL_APP_URL.vercel.app", "http://localhost:5173") // <-- UPDATE VERCEL URL
     .AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddSwaggerGen(c =>
 {
@@ -86,6 +86,9 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider
         .GetRequiredService<AppDbContext>();
+
+    // Automatically apply migrations to the database on startup!
+    db.Database.Migrate();
 
     if (!db.MenuItems.Any())
     {
