@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FiSearch } from "react-icons/fi";
 import { useDebounce } from "../hooks/useDebounce";
 import MenuList from "../components/MenuList";
 
@@ -78,13 +79,16 @@ function MenuPage() {
         <div>
             <h2>Campus Menu</h2>
             <div className="search-container">
-                <input
-                    className="search-bar"
-                    type="text"
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search dishes..."
-                />
+                <div className="search-box">
+                    <FiSearch className="search-icon" />
+                    <input
+                        className="search-bar"
+                        type="text"
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        placeholder="Search dishes..."
+                    />
+                </div>
             </div>
 
             {/* Category Filter Pills */}

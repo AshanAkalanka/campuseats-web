@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { FiArrowRight } from "react-icons/fi";
 
 function DishCard({ dish }) {
-    // Consistent image for each dish using picsum seed
-    const imageUrl = `https://picsum.photos/seed/${dish.id}/500/350`;
+    // Uses the custom illustration from public/ folder (or dish.imageUrl if set)
+    const imageUrl = dish.imageUrl || "/dish-placeholder.jpg";
 
     return (
         <div className="dish-card">
@@ -28,7 +29,7 @@ function DishCard({ dish }) {
                     className="details-link"
                     to={`/dish/${dish.id}`}
                 >
-                    View Details →
+                    View Details <FiArrowRight style={{ verticalAlign: "middle", marginLeft: "4px" }} />
                 </Link>
             </div>
         </div>

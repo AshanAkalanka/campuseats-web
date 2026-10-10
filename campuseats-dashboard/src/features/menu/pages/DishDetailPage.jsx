@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FiArrowLeft, FiShoppingBag, FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 function DishDetailPage() {
     const { id } = useParams();
@@ -42,12 +43,15 @@ function DishDetailPage() {
         return (
             <div style={{textAlign: "center", marginTop: "40px"}}>
                 <p>Dish not found.</p>
-                <Link to="/" className="btn-secondary">← Back to menu</Link>
+                <Link to="/" className="btn-secondary">
+                    <FiArrowLeft style={{ verticalAlign: "middle", marginRight: "6px" }} />
+                    Back to menu
+                </Link>
             </div>
         );
     }
 
-    const imageUrl = `https://picsum.photos/seed/${dish.id}/600/400`;
+    const imageUrl = dish.imageUrl || "/dish-placeholder.jpg";
 
     return (
         <div className="dish-details">
@@ -63,20 +67,26 @@ function DishDetailPage() {
                     {dish.category}
                 </p>
 
-                <p style={{marginBottom: "24px"}}>
+                <p style={{marginBottom: "24px", display: "flex", alignItems: "center", gap: "6px"}}>
                     <strong>Availability: </strong>
                     {dish.available ? (
-                        <span style={{color: "#16a34a", fontWeight: "600"}}>Available</span>
+                        <span style={{color: "#16a34a", fontWeight: "600", display: "inline-flex", alignItems: "center", gap: "4px"}}>
+                            <FiCheckCircle /> Available
+                        </span>
                     ) : (
-                        <span className="sold-out">Sold out</span>
+                        <span className="sold-out" style={{position: "static", display: "inline-flex", alignItems: "center", gap: "4px"}}>
+                            <FiXCircle /> Sold out
+                        </span>
                     )}
                 </p>
                 
                 <div style={{display: "flex", gap: "12px"}}>
                     <Link to="/" className="btn-secondary">
-                        ← Back to Menu
+                        <FiArrowLeft style={{ verticalAlign: "middle", marginRight: "6px" }} />
+                        Back to Menu
                     </Link>
-                    <Link to="/order" className="btn-primary">
+                    <Link to="/order" state={{ dish }} className="btn-primary">
+                        <FiShoppingBag style={{ verticalAlign: "middle", marginRight: "6px" }} />
                         Place Order
                     </Link>
                 </div>

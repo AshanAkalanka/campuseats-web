@@ -50,7 +50,8 @@ h2 {
 
 .nav-links {
   display: flex;
-  gap: 16px;
+  gap: 12px;
+  align-items: center;
 }
 
 .nav-links a {
@@ -61,6 +62,8 @@ h2 {
   padding: 8px 18px;
   border-radius: 9999px;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-links a:hover {
@@ -73,10 +76,50 @@ h2 {
   color: #ffffff;
 }
 
+.nav-separator {
+  width: 1px;
+  height: 20px;
+  background-color: #cbd5e1;
+  display: inline-block;
+  align-self: center;
+}
+
+/* Hamburger Button */
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #1e3a8a;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: none;
+  line-height: 1;
+}
+
+.hamburger-btn:hover {
+  background: transparent;
+  color: #2563eb;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* 2. Hero Section (like the reference banner) */
 .hero-banner {
   position: relative;
-  height: 280px;
+  height: 440px;
   background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
@@ -133,10 +176,25 @@ h2 {
   margin-bottom: 25px;
 }
 
-.search-bar {
+.search-box {
+  position: relative;
   width: 100%;
   max-width: 480px;
-  padding: 12px 24px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px 24px 12px 46px;
   font-size: 15px;
   border: 1px solid #cbd5e1;
   border-radius: 9999px;
@@ -401,4 +459,468 @@ form span {
 .success-message h2 {
   color: #15803d;
   margin-top: 0;
+}
+
+/* Custom Select Dropdown (Matching Reference UI) */
+.custom-select-wrap {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+}
+
+.custom-select-box {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 20px;
+  background-color: #ffffff;
+  border: 1.5px solid #1e293b;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 48px;
+}
+
+.custom-select-box:hover {
+  border-color: #0f172a;
+}
+
+.custom-select-box.is-open {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.selected-value-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-icon-box {
+  display: inline-flex;
+  align-items: center;
+  color: #1e293b;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.selected-dish-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.selected-dish-price {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.select-arrow {
+  font-size: 19px;
+  color: #1e293b;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.select-arrow.arrow-up {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu Card */
+.custom-select-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.09), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  padding: 6px;
+  z-index: 100;
+  max-height: 275px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.custom-select-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-select-menu::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 6px;
+}
+.custom-select-menu::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 6px;
+}
+
+/* Option Row */
+.custom-select-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #1e293b;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.item-icon-box {
+  display: inline-flex;
+  align-items: center;
+  color: #475569;
+  font-size: 19px;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.item-label {
+  flex: 1;
+  color: inherit;
+}
+
+.item-price-tag {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748b;
+  margin-left: auto;
+  transition: color 0.15s ease;
+}
+
+/* Active / Hover State: Soft blue background and vibrant blue icon */
+.custom-select-item:hover,
+.custom-select-item.item-selected {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.custom-select-item:hover .item-icon-box,
+.custom-select-item.item-selected .item-icon-box {
+  color: #2563eb;
+}
+
+.custom-select-item:hover .item-price-tag,
+.custom-select-item.item-selected .item-price-tag {
+  color: #2563eb;
+}
+
+/* My Orders Page (Matching Reference Screenshot) */
+.orders-page-container {
+  max-width: 680px;
+  margin: 10px auto 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.orders-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.orders-header-row h2 {
+  margin: 0;
+  text-align: left;
+  font-size: 26px;
+}
+
+.orders-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.05);
+  padding: 24px 28px;
+}
+
+.orders-card-title {
+  margin: 0 0 16px 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-item-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.order-item-img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 18px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.order-item-info {
+  flex: 1;
+}
+
+.order-item-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.order-item-price {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.order-item-qty {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.order-item-subtotal {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-left: 12px;
+}
+
+.orders-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #f1f5f9;
+}
+
+.orders-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  color: #1e293b;
+  margin-bottom: 22px;
+}
+
+.orders-total-row strong {
+  font-size: 20px;
+  color: #1e3a8a;
+}
+
+.orders-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.empty-orders-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Required field star */
+.required-star {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 15px;
+  margin-left: 3px;
+}
+
+/* ==========================================================================
+   Mobile Responsive & Hamburger Navbar
+   ========================================================================== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  /* Hamburger toggle button on right side */
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hide regular horizontal nav links */
+  .nav-links {
+    display: none;
+  }
+
+  /* Expandable dropdown menu when hamburger is clicked */
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 16px 20px 22px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 0;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+    gap: 8px;
+    z-index: 99;
+  }
+
+  .nav-links.mobile-open a {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 9999px; /* Fully rounded in navbar */
+    box-sizing: border-box;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .nav-links.mobile-open a.active-link {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+  }
+
+  .nav-links.mobile-open a:hover:not(.active-link) {
+    background-color: #f1f5f9;
+    color: #1e3a8a;
+  }
+
+  /* Divider line separating the 3 items (matching reference image) */
+  .nav-links.mobile-open .nav-separator {
+    width: 100%;
+    height: 1px;
+    background-color: #e2e8f0;
+    margin: 2px 0;
+    display: block;
+  }
+
+  /* Responsive Hero */
+  .hero-banner {
+    height: 300px;
+    padding: 0 16px;
+    margin-bottom: 24px;
+  }
+
+  .hero-banner h1 {
+    font-size: 26px;
+  }
+
+  .hero-banner p {
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 0 14px 40px;
+  }
+
+  /* Responsive Menu Grid */
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .search-container {
+    padding: 0 8px;
+  }
+
+  .category-filters {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .category-pill {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  /* Responsive Order Form & Details */
+  form {
+    padding: 24px 18px;
+    margin: 15px auto;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 14px;
+  }
+
+  .orders-page-container {
+    padding: 0 4px;
+  }
+
+  .orders-card {
+    padding: 20px 16px;
+  }
+
+  .order-item-img {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+  }
+
+  .orders-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .orders-actions a {
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dish-details {
+    margin: 15px auto;
+    border-radius: 14px;
+  }
+
+  .dish-details-body {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-banner {
+    height: 260px;
+  }
+
+  .hero-banner h1 {
+    font-size: 22px;
+  }
 }
